@@ -1,0 +1,46 @@
+<!-- <button mat-raised-button class="fas fa-arrow-left back-button" [routerLink]="['/games-teacher/overview']"></button> -->
+<mat-card-header>
+    <mat-card-title>Simple Task Settings</mat-card-title>
+</mat-card-header>
+
+<app-messages></app-messages>
+
+<mat-card-content *ngIf= "games; else loadingContent">
+    <div class="mt-2">
+        <mat-accordion>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Create New Task
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-simple-task-form [game]="newTask" (gameChange)="onCreateGame($event)"></app-simple-task-form>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    <mat-card-subtitle *ngIf="games.length>0" class="mt-3">Simple Tasks</mat-card-subtitle>
+    <mat-accordion class="headers-align">
+        <div *ngIf="games; else loadingContent">
+            <mat-expansion-panel *ngFor="let game of games" hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title> {{game.name}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{ game.description }}
+                        <mat-icon class="headers-align-right" title="delete game"
+                            (click)="$event.stopPropagation(); deleteGame(game)">delete_forever</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <app-simple-task-form [game]="game" (gameChange)="onGameChange($event)"></app-simple-task-form>
+            </mat-expansion-panel>
+        </div>
+    </mat-accordion>
+</mat-card-content>
+<ng-template #loadingContent>
+    <mat-card-content>
+        <div>
+            <mat-spinner class="loading" [diameter]="50"></mat-spinner>
+            <span class="loading">Loading...</span>
+        </div>
+    </mat-card-content>
+</ng-template>

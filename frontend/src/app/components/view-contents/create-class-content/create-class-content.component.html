@@ -1,0 +1,94 @@
+<div class="create-class-component" style="margin-left: 50px; margin-right: 50px">
+  <mat-card>
+    <div fxFlex="1 1 100%" class="login-form">
+      <h1>Create Class</h1>
+      <br />
+      <form [formGroup]="createClassForm" (ngSubmit)="createClassConfirmationDialog()">
+        <div class="form-groups">
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" formControlName="name" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Name is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select formControlName="subject" class="form-control" [(ngModel)]="selectedSubject">
+              <option [ngValue]="null" disabled>Subject</option>
+              <option *ngFor="let subject of subjectList" [ngValue]="subject.value">
+                {{subject.name}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="level">Class Level</label>
+            <select formControlName="level" class="form-control" [(ngModel)]="selectedClassLevel">
+              <option [ngValue]="null" disabled>Class Level</option>
+              <option *ngFor="let level of classLevelList" [ngValue]="level.value">
+                {{level.name}}</option>
+            </select>
+          </div>
+
+
+          <div class="form-group">
+            <label for="language">Language</label>
+            <select formControlName="language" class="form-control" [(ngModel)]="selectedLanguage">
+              <option [ngValue]="null" disabled>Language</option>
+              <option *ngFor="let language of languageList" [ngValue]="language.value">
+                {{language.name}}
+              </option>
+            </select>
+          </div>
+
+
+          <div class="form-group">
+            <label for="languageLevel">Language Level</label>
+            <select formControlName="languageLevel" class="form-control" [(ngModel)]="selectedLanguageLevel">
+              <option [ngValue]="null" disabled>Language Level</option>
+              <option *ngFor="let langLvl of languageLevelList" [ngValue]="langLvl">
+                {{langLvl}}</option>
+            </select>
+          </div>
+
+
+          <div class="form-group">
+            <label for="selectedCountry">Country</label>
+            <select formControlName="selectedCountry" class="form-control" [(ngModel)]="selectedClassCountry">
+              <option [ngValue]="null" disabled>Country</option>
+              <option *ngFor="let country of countryList" [ngValue]="country.code">
+                {{country.name}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="meetingFrequency">Meeting Frequency</label>
+            <select formControlName="meetingFrequency" class="form-control" [(ngModel)]="selectedFrequency">
+              <option [ngValue]="null" disabled>Meeting Frequency</option>
+              <option *ngFor="let freq of frequencyList" [ngValue]="freq.value">
+                {{freq.name}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="projectDuration">Project Duration</label>
+            <select formControlName="projectDuration" class="form-control" [(ngModel)]="selectedProjectDuration">
+              <option [ngValue]="null" disabled>Project Duration</option>
+              <option *ngFor="let projectDuration of projectDurationList" [ngValue]="projectDuration.value">
+                {{projectDuration.name}}</option>
+            </select>
+          </div>
+
+        </div>
+
+        <button [disabled]="loading" class="btn btn-outline-primary btn-lg btn-block btn-user" type="submit">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Create Class
+        </button>
+      </form>
+    </div>
+  </mat-card>
+</div>

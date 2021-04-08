@@ -1,0 +1,17 @@
+export * from './auth.service';
+import { AuthService } from './auth.service';
+export * from './classes.service';
+import { ClassesService } from './classes.service';
+export * from './meetings.service';
+import { MeetingsService } from './meetings.service';
+export * from './meta.service';
+import { MetaService } from './meta.service';
+export * from './projects.service';
+import { ProjectsService } from './projects.service';
+export * from './schools.service';
+import { SchoolsService } from './schools.service';
+export * from './students.service';
+import { StudentsService } from './students.service';
+export * from './user.service';
+import { UserService } from './user.service';
+export const APIS = [AuthService, ClassesService, MeetingsService, MetaService, ProjectsService, SchoolsService, StudentsService, UserService];

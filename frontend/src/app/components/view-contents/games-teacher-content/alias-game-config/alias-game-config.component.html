@@ -1,0 +1,53 @@
+<button *ngIf="!isPlanMeetingView" mat-raised-button class="fas fa-arrow-left back-button"
+    [routerLink]="['/games-teacher/overview']"></button>
+<mat-card-header>
+    <mat-card-title>Alias Settings</mat-card-title>
+</mat-card-header>
+
+<app-messages></app-messages>
+
+<mat-card-content *ngIf="games; else loadingAliasContent">
+    <div class="mt-2">
+        <mat-accordion>
+            <mat-expansion-panel hideToggle #createAliasGamePanel='matExpansionPanel'>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Create New Game
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-alias-form [game]="newGame"
+                    (gameChange)="onCreateGame($event); createAliasGamePanel.expanded = false"></app-alias-form>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    <mat-card-subtitle class="mt-3">Games</mat-card-subtitle>
+    <mat-accordion class="headers-align">
+        <div *ngIf="games; else loadingAliasContent">
+            <mat-expansion-panel *ngFor="let game of games" hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title *ngIf="isPlanMeetingView">
+                        <mat-checkbox [checked]="boxChecked(game)" (change)="aliasSelected($event, game)">
+                            {{ game.name }} </mat-checkbox>
+                    </mat-panel-title>
+                    <mat-panel-title *ngIf="!isPlanMeetingView">
+                        {{ game.name }}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{ game.description }}
+                        <mat-icon class="headers-align-right" title="delete game"
+                            (click)="$event.stopPropagation(); deleteGame(game)">delete_forever</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <app-alias-form [game]="game" (gameChange)="onGameChange($event)"></app-alias-form>
+            </mat-expansion-panel>
+        </div>
+    </mat-accordion>
+</mat-card-content>
+<ng-template #loadingAliasContent>
+    <mat-card-content>
+        <div>
+            <mat-spinner class="loading" [diameter]="50"></mat-spinner>
+            <span class="loading">Loading Games...</span>
+        </div>
+    </mat-card-content>
+</ng-template>
